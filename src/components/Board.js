@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import Square from "./Square";
+import calculateWinner from "./Winner";
 
 function Board () {
     const [squares, setSquares] = useState(Array(9).fill(null))
     const [isX, setIsX] = useState(true)
 
     const handleClick = (i) => {
+        if (calculateWinner(squares) || squares[i]) {
+            return
+        }
+
         squares[i] = isX ? 'X' : 'O'
         setSquares(squares)
+        setIsX(!isX)
     }
 
     return ( 
