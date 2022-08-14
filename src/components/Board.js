@@ -16,6 +16,20 @@ function Board () {
         setIsX(!isX)
     }
 
+    const winner = calculateWinner(squares)
+    let status
+
+    if (winner) {
+        status = `Winner: ${winner}`
+    } else {
+        status = `Next player: ${isX ? 'X' : 'O'}`
+    }
+
+    const handleRestart = () => {
+        setIsX(true)
+        setSquares(Array(9).fill(null))
+    }
+
     return ( 
         <div className="board">
             <div className="board-row">
@@ -33,6 +47,8 @@ function Board () {
                 <Square value={squares[7]} onClick={() => handleClick(7)} />
                 <Square value={squares[8]} onClick={() => handleClick(8)} />
             </div>
+            <div className="status">{status}</div>
+            <button className="restart" onClick={handleRestart}>Restart</button>
         </div>
     )
 }
